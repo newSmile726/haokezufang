@@ -28,7 +28,7 @@
       </div>
     </van-form>
     <div class="am-flexbox-item">
-      <a href="#">还没有账号，去注册~</a>
+      <a class="atext" href="#">还没有账号，去注册~</a>
     </div>
   </div>
 </template>
@@ -81,6 +81,7 @@ export default {
         this.$store.commit('setUser', res.data.body)
         if (res.data.status === 200) {
           this.$toast.success('登录成功')
+          setTimeout(() => this.$router.push('/home/profile'), 1500)
         } else {
           this.$toast.fail('登录失败')
         }
@@ -117,5 +118,9 @@ export default {
     text-align: center;
     color: #666;
   }
+  .atext{
+    font-size: 12px;
+  }
 }
+
 </style>

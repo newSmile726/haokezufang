@@ -13,3 +13,11 @@ export const login = (data) => {
     data
   })
 }
+
+export const profile = (user) => {
+  return request({
+    url: '/user',
+    method: 'GET',
+    headers: { Authorization: `Bearer  ${user}` }
+  })
+}

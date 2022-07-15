@@ -10,10 +10,6 @@ export default {
   }
 }
 </script>
-<style lang="less">
-.test{
-  width: 100px;
-  height: 200px;
-  background-color: pink;
-}
+<style lang="less" scoped>
+
 </style>

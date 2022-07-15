@@ -9,8 +9,35 @@ const routes = [
     component: () => import('@/views/Login')
   },
   {
-    path: '/profile',
-    component: () => import('@/views/Profile')
+    path: '/',
+    redirect: '/home',
+    component: () => import('@/views/Layout'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/Home')
+      },
+      {
+        path: '/home/list',
+        name: 'list',
+        component: () => import('@/views/List')
+      },
+      {
+        path: '/home/news',
+        name: 'news',
+        component: () => import('@/views/News')
+      },
+      {
+        path: '/home/profile',
+        name: 'profile',
+        component: () => import('@/views/Profile')
+      }
+    ]
+  },
+  {
+    path: '*',
+    component: () => import('@/views/NotFound')
   }
 ]
 
