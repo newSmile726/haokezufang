@@ -6,18 +6,31 @@ import request from '@/utils/request'
  * @param {string} password  密码
  * @returns  promise
  */
-export const login = (data) => {
+export const login = (username, password) => {
   return request({
     url: '/user/login',
     method: 'POST',
-    data
+    data: { username, password }
   })
 }
 
+/**
+ *  获取用户信息
+ * @param {string} user  用户的token
+ * @returns promise
+ */
 export const profile = (user) => {
   return request({
     url: '/user',
     method: 'GET',
-    headers: { Authorization: `Bearer  ${user}` }
+    header: { Authorization: `Bearer ${user}` }
+  })
+}
+
+export const Favoritelist = (user) => {
+  return request({
+    url: '/user/favorites',
+    method: 'GET',
+    header: { Authorization: `Bearer  ${user}` }
   })
 }

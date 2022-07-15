@@ -36,6 +36,10 @@ const routes = [
     ]
   },
   {
+    path: '/favorate',
+    component: () => import('@/views/Favorate')
+  },
+  {
     path: '*',
     component: () => import('@/views/NotFound')
   }

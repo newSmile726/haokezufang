@@ -28,7 +28,7 @@
   </div>
     <!-- 登录成功页面 -->
     <van-grid class="van-grid-test" :border="false" :column-num="3">
-      <van-grid-item text="我的收藏">
+      <van-grid-item to="/favorate" text="我的收藏">
         <template #icon>
           <i class="iconfont icon-wodeshoucang"></i>
         </template>
@@ -96,7 +96,8 @@ export default {
     },
     // 获取用户信息
     async messageInfo () {
-      const res = await profile(this.user)
+      console.log(this.user)
+      const res = await profile(this.user.token)
       console.log(res)
     }
   }

@@ -20,7 +20,5 @@ export default new Vuex.Store({
       setItem(TOKEN_KEY, state.user)
       // window.localStorage.setItem(TOKEN_KEY, JSON.stringify(state.user))
     }
-  },
-  actions: {},
-  modules: {}
+  }
 })

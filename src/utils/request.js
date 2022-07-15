@@ -1,8 +1,7 @@
 // 封装跟路径
 import axios from 'axios'
 const request = axios.create({
-  baseURL: 'http://liufusong.top:8080',
-  timeout: 3000
+  baseURL: 'http://liufusong.top:8080'
 })
 
 export default request

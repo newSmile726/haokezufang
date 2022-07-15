@@ -25,40 +25,65 @@
     <van-grid>
         <van-grid-item text="整租">
           <template #icon>
-            <i class="iconfont icon-fangwuxinxi"></i>
+            <div class="iconfont icon-fangwuxinxi"></div>
           </template>
         </van-grid-item>
         <van-grid-item text="合租">
           <template #icon>
-            <i class="iconfont icon-duoren"></i>
+            <div class="iconfont icon-duoren"></div>
           </template>
         </van-grid-item>
         <van-grid-item text="地图找房">
           <template #icon>
-            <i class="iconfont icon-ditu"></i>
+            <div class="iconfont icon-ditu"></div>
           </template>
         </van-grid-item>
         <van-grid-item text="去出租">
           <template #icon>
-            <i class="iconfont icon-fangwuxinxi"></i>
+            <div class="iconfont icon-fangwuxinxi"></div>
           </template>
         </van-grid-item>
     </van-grid>
+    <!-- 租房小组 -->
+    <div class="home-rent">
+      <div class="rent-title">
+        <span class="text">租房小组</span>
+        <span class="text1">更多</span>
+      </div>
+      <van-grid
+      class="rent-message"
+      :column-num="2"
+      :gutter="10"
+       direction="horizontal">
+        <van-grid-item class="rent-text" v-for="item in rentHouse" :key="item.id" click>
+          <template #icon>
+          <img class="img" :src="aa+item.imgSrc" alt="">
+          </template>
+          <template #text>
+            <span class="text">{{item.title}}{{item.desc}}</span>
+          </template>
+        </van-grid-item>
+      </van-grid>
+    </div>
   </div>
 </template>
 <script>
-import { swiper } from '@/api/home'
+import { swiper, homeRent } from '@/api/home'
 export default {
   name: '',
   data () {
     return {
       value: '',
-      swiper: [],
+      swiper: [], // 轮播图
+      rentHouse: [], // 租房小组
       aa: 'http://liufusong.top:8080'
     }
   },
   created () {
+    // 轮播图
     this.onswiper()
+    // 租房小组
+    this.homeRentDown()
   },
   mounted () {},
   computed: {},
@@ -66,10 +91,21 @@ export default {
     onSearch () {
       console.log(this.value)
     },
+    // 轮播图请求
     async onswiper () {
       const res = await swiper()
       this.swiper = res.data.body
       // console.log(this.swiper)
+    },
+    // 租房小组请求
+    async homeRentDown () {
+      try {
+        const res = await homeRent()
+        // console.log(res)
+        this.rentHouse = res.data.body
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -119,7 +155,63 @@ export default {
       height: 212px;
     }
   }
+.van-grid{
+  height: 108px;
+  font-size: 16px;
+  color: #000;
+.iconfont{
+  background-color: #f2fbf7;
+  border-radius:50% ;
+  color: #09b16b;
+  text-align: center;
+  line-height: 50px;
+  width: 60px;
+  height: 50px;
+  font-size: 40px;
+  margin-bottom: 18px;
+}
+}
+// 租房小组css样式
+.home-rent{
+  width: 375px;
+  height: 188px;
+  background-color: #f6f5f6;
+  .van-grid-item__content{
+    height: 40px;
+  }
+  .rent-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin: 13px 15px;
+    .text{
+      margin-top: 15px;
+      font-weight: 700;    }
+      .text1{
+        margin-top: 15px;
+        color: #787d82;
+      }
+  }
+  .rent-message{
+    margin: 0 10px;
+    .img{
+      width: 40px;
+      height: 40px;
+    }
+    .rent-text{
+      :deep(.van-grid-item__content){
+        padding: 8px;
+      }
+        .text{
+          margin-left: 20px;
+          font-size: 15px;
+          font-weight: 300;
+    }
+    }
 
+  }
+}
 }
 
 </style>

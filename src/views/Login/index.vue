@@ -9,17 +9,17 @@
     <!-- 账号密码表单 -->
     <van-form @submit="login">
       <van-field
-        v-model="user.username"
+        v-model="username"
         name="账号"
         placeholder="请输入账号"
-        :rules="userFormRules.username"
+        :rules="usernameRules"
       />
       <van-field
-        v-model="user.password"
+        v-model="password"
         type="password"
         name="密码"
         placeholder="请输入密码"
-        :rules="userFormRules.password"
+        :rules="passwordRules"
       />
       <div style="margin: 16px">
         <van-button class="denglu" round block type="info" native-type="submit"
@@ -34,37 +34,15 @@
 </template>
 <script>
 import { login } from '@/api/user'
+import { usernameRules, passwordRules } from './rules'
 export default {
   name: 'Login',
   data () {
     return {
-      user: {
-        username: '',
-        password: ''
-      },
-      userFormRules: {
-        username: [
-          {
-            required: true
-          },
-          {
-            // 账号以字母开头5-16位
-            parrern: /^[a-zA-Z]\w{4,15}$/,
-            message: '手机号格式错误'
-          }
-        ],
-        password: [
-          {
-            required: true
-          },
-          {
-            // 密码强度
-            parrern:
-              /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/,
-            message: '验证码格式错误'
-          }
-        ]
-      }
+      username: '',
+      password: '',
+      usernameRules,
+      passwordRules
     }
   },
   created () {},
@@ -76,17 +54,22 @@ export default {
       this.$router.back()
     },
     async login () {
+      this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       try {
-        const res = await login(this.user)
+        const res = await login(this.username, this.password)
         this.$store.commit('setUser', res.data.body)
-        if (res.data.status === 200) {
+        const status = res.data.status
+        if (status === 200) {
+          this.$router.push('/home/profile')
           this.$toast.success('登录成功')
-          setTimeout(() => this.$router.push('/home/profile'), 1500)
         } else {
-          this.$toast.fail('登录失败')
+          this.$toast.fail(res.data.description)
         }
-      } catch (err) {
-        console.log(err)
+      } catch (e) {
+        this.$toast.fail('登录失败，请刷新~')
       }
     }
   }

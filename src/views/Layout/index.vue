@@ -2,7 +2,7 @@
   <div>
    <!-- 二级路由出口 -->
     <router-view></router-view>
-    <van-tabbar v-model="active">
+    <van-tabbar route>
       <van-tabbar-item to='/home'>
       <span>首页</span>
       <template #icon>
