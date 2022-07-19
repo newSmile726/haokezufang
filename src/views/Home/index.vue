@@ -16,7 +16,7 @@
       @search="onSearch"
     >
     <template #left>
-      <span class="text">北京▾</span>
+      <span class="text" @click="$router.push('/city')" >北京▾</span>
     </template>
     </van-search>
     <i class="ditu iconfont icon-ditu1"></i>
@@ -54,8 +54,9 @@
       class="rent-message"
       :column-num="2"
       :gutter="10"
+      clickable
        direction="horizontal">
-        <van-grid-item class="rent-text" v-for="item in rentHouse" :key="item.id" click>
+        <van-grid-item class="rent-text" v-for="item in rentHouse" :key="item.id">
           <template #icon>
           <img class="img" :src="aa+item.imgSrc" alt="">
           </template>

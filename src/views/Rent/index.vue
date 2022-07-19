@@ -1,34 +1,39 @@
 <template>
   <div>
     <van-nav-bar
-      title="收藏列表"
+      title="我的出租"
       class="navbar"
       left-arrow
       fixed
       @click-left="onClickLeft"
     />
-    <van-cell-group class="user-txte" >
-      <van-cell @click="godetai(index)" :title="item.title" title-class='title' v-for="(item,index) in Mycollection" :key="index">
+    <van-cell-group class="user-txte">
+      <van-cell
+        @click="godetai(index)"
+        :title="item.title"
+        title-class="title"
+        v-for="(item, index) in Mycollection"
+        :key="index"
+      >
         <template #icon>
-          <van-image
-          class="img"
-            :src="baseU + item.houseImg"
-          />
+          <van-image class="img" :src="baseU + item.houseImg" />
         </template>
-          <template #label>
-        <div class="label">
-            <div class="text1">{{item.desc}}</div>
-            <div v-for="(arr,index) in item.tags" :key="index" class="text2">{{arr}}</div>
-            <div class="text3">{{item.price}} <span>元/月</span></div>
-        </div>
-          </template>
+        <template #label>
+          <div class="label">
+            <div class="text1">{{ item.desc }}</div>
+            <div v-for="(arr, index) in item.tags" :key="index" class="text2">
+              {{ arr }}
+            </div>
+            <div class="text3">{{ item.price }} <span>元/月</span></div>
+          </div>
+        </template>
       </van-cell>
     </van-cell-group>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
-import { Favoritelist } from '@/api/user'
+import { Myhouseslist } from '@/api/user'
 export default {
   name: '',
   data () {
@@ -51,14 +56,14 @@ export default {
     // 获取收藏列表
     async Favoritelistff () {
       try {
-        const res = await Favoritelist(this.user.token)
+        const res = await Myhouseslist(this.user.token)
         // console.log(res)
         this.Mycollection = res.data.body
       } catch (error) {
         console.log(error)
       }
     },
-    // 跳转房源详情
+    // 跳转出租房源页
     godetai (index) {
       this.$router.push({
         path: '/detai',
@@ -83,25 +88,25 @@ export default {
 }
 .user-txte {
   margin-top: 50px;
-  .title{
+  .title {
     font-size: 15px;
     font-weight: 700;
     color: #394043;
   }
-  .img{
+  .img {
     width: 106px;
     height: 80px;
     margin-right: 5px;
   }
-  .label{
-    .text1{
+  .label {
+    .text1 {
       font-size: 12px;
-      color: #AFB2B3;
+      color: #afb2b3;
       margin-top: -3px;
     }
-    .text2{
+    .text2 {
       display: inline-block;
-      border-radius:5px ;
+      border-radius: 5px;
       width: 40px;
       height: 15px;
       line-height: 20px;
@@ -111,10 +116,10 @@ export default {
       padding: 2px 2px;
       margin: 2px 0;
     }
-    .text3{
+    .text3 {
       font-size: 16px;
       color: #fa5741;
-      span{
+      span {
         font-size: 12px;
       }
     }

@@ -23,14 +23,30 @@ export const profile = (user) => {
   return request({
     url: '/user',
     method: 'GET',
-    header: { Authorization: `Bearer ${user}` }
+    headers: { Authorization: user }
   })
 }
-
+/**
+ * 查看用户收藏列表
+ * @param {string} user  收藏列表
+ * @returns  promise
+ */
 export const Favoritelist = (user) => {
   return request({
     url: '/user/favorites',
     method: 'GET',
-    header: { Authorization: `Bearer  ${user}` }
+    headers: { Authorization: user }
+  })
+}
+/**
+ *  查看我的出租
+ * @param {string} user 我的出租
+ * @returns promise
+ */
+export const Myhouseslist = (user) => {
+  return request({
+    url: '/user/houses',
+    method: 'GET',
+    headers: { Authorization: user }
   })
 }

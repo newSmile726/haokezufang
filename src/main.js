@@ -6,6 +6,7 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import 'amfe-flexible'
 import './assets/fonts/iconfont.css'
+import '@/utils/RouteGuard'
 Vue.use(Vant)
 Vue.config.productionTip = false
 

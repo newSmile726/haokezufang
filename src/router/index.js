@@ -40,6 +40,18 @@ const routes = [
     component: () => import('@/views/Favorate')
   },
   {
+    path: '/rent',
+    component: () => import('@/views/Rent')
+  },
+  {
+    path: '/detai',
+    component: () => import('@/components/Detai')
+  },
+  {
+    path: '/city',
+    component: () => import('@/views/city')
+  },
+  {
     path: '*',
     component: () => import('@/views/NotFound')
   }
@@ -48,5 +60,14 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 处理控制台报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject)
+  }
+  return originalPush.call(this, location).catch((err) => err)
+}
 
 export default router

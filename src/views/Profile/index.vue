@@ -19,9 +19,9 @@
       <van-image
       class="touxiang"
         round
-        src="https://img01.yzcdn.cn/vant/cat.jpeg"
+        :src="base+userInfo.avatar"
       />
-      <p class="yonghuming">用户</p>
+      <p class="yonghuming">{{userInfo.nickname}}</p>
       <van-button class="denglu" type="primary" @click="dropout">退出</van-button>
       <span class="text">编辑个人资料►</span>
     </div>
@@ -33,7 +33,7 @@
           <i class="iconfont icon-wodeshoucang"></i>
         </template>
       </van-grid-item>
-      <van-grid-item text="我的出租">
+      <van-grid-item to="/rent" text="我的出租">
         <template #icon>
           <i class="iconfont icon-fangwuxinxi"></i>
         </template>
@@ -65,10 +65,13 @@
 <script>
 import { mapState } from 'vuex'
 import { profile } from '@/api/user.js'
+// import '@/utils/RouteGuard'
 export default {
-  name: '',
+  name: 'Profile',
   data () {
     return {
+      userInfo: {},
+      base: 'http://liufusong.top:8080'
     }
   },
   created () {
@@ -96,9 +99,9 @@ export default {
     },
     // 获取用户信息
     async messageInfo () {
-      console.log(this.user)
       const res = await profile(this.user.token)
-      console.log(res)
+      // console.log(res)
+      this.userInfo = res.data.body
     }
   }
 }
