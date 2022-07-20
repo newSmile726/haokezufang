@@ -1,6 +1,6 @@
 import router from '@/router'
 import store from '@/store'
-const Address = ['/favorate', '/rent']
+const Address = ['/favorate', '/rent', '/add']
 // console.log(Address)
 router.beforeEach((to, from, next) => {
   const isShow = !!store.state.user

@@ -9,3 +9,14 @@ export const houseMeassage = (id) => {
     url: `/houses/${id}`
   })
 }
+/**
+ * 发布房屋所需条件
+ * @param {string} user  token
+ * @returns promise
+ */
+export const sethouseMeassage = (user) => {
+  return request({
+    url: '/houses/params',
+    headers: { Authorization: user }
+  })
+}

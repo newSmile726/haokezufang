@@ -38,7 +38,7 @@
             <div class="iconfont icon-ditu"></div>
           </template>
         </van-grid-item>
-        <van-grid-item text="去出租">
+        <van-grid-item to='/add' text="去出租">
           <template #icon>
             <div class="iconfont icon-fangwuxinxi"></div>
           </template>

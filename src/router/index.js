@@ -52,6 +52,14 @@ const routes = [
     component: () => import('@/views/city')
   },
   {
+    path: '/add',
+    component: () => import('@/views/add')
+  },
+  {
+    path: '/search',
+    component: () => import('@/views/add/Search')
+  },
+  {
     path: '*',
     component: () => import('@/views/NotFound')
   }
