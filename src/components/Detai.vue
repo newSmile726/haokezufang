@@ -1,129 +1,159 @@
 <template>
   <div class="detail">
-
-      <!-- 顶部标题 -->
-      <van-nav-bar :title="list.community" left-arrow @click-left="onClickLeft" />
-      <!-- 大图区域 -->
-        <div class="my-swipe" v-for="(arr,index) in list.houseImg" :key="index">
-          <img :src="base+arr" alt="">
-        </div>
-
-      <!-- 房屋信息 -->
-      <div class="House-Detail">
-        <div class="house-title">
-          <h3 class="top">{{list.title}}</h3>
-          <p class="buttom">近地铁</p>
-        </div>
-        <div class="house-message">
-          <div>
-            <div class="txt">{{list.price}} <span>/月</span></div>
-            <div class="mitxt">租金</div>
-          </div>
-          <div>
-            <div class="txt">{{list.roomType}}</div>
-            <div class="mitxt">房型</div>
-          </div>
-          <div>
-            <div class="txt">{{list.size}}平米</div>
-            <div class="mitxt">面积</div>
-          </div>
-        </div>
-        <div class="house-ff">
-          <div>
-            <p><span>装修：</span>精装</p>
-            <p><span>楼层：</span>{{list.floor}}</p>
-          </div>
-          <div>
-            <p><span>朝向：</span>东</p>
-            <p><span>类型：</span>普通住宅</p>
-          </div>
-        </div>
+    <!-- 顶部标题 -->
+    <van-nav-bar :title="list.community" left-arrow @click-left="onClickLeft" />
+    <!-- 大图区域 -->
+    <van-swipe :autoplay="3000">
+      <van-swipe-item
+        class="my-swipe"
+        v-for="(image, index) in list.houseImg"
+        :key="index"
+      >
+        <img v-lazy="base + image" />
+      </van-swipe-item>
+    </van-swipe>
+    <!-- 房屋信息 -->
+    <div class="House-Detail">
+      <div class="house-title">
+        <h3 class="top">{{ list.title }}</h3>
+        <p class="buttom">近地铁</p>
       </div>
-      <!--  小区地理位置-->
-      <div class="Cell-location">
-        <div class="title"><span>小区：</span>天山星城</div>
-        <div class="img">地图</div>
-      </div>
-      <!-- 房屋配套 -->
-      <div class="Housing-supporting">
-        <div class="title">房屋配套</div>
-        <div class="supporting">
-          <div class="text"><span class="iconfont icon-yigui"></span>衣柜</div>
-          <div class="text">
-            <span class="iconfont icon-dianshi"></span> 电视
-          </div>
-        </div>
-      </div>
-      <!-- 房源概况 -->
-      <div class="Housing-set">
-        <div class="title">房源概况</div>
-        <div class="userFd">
-          <div class="img">
-            <img src="../assets/avatar.png" alt="" />
-          </div>
-          <div class="Fdname">
-            王女士
-            <div class="renzheng">
-              <i class="iconfont icon-gerenziliao"></i>已认证房主
-            </div>
-          </div>
-          <div class="xiaoxi">发消息</div>
-        </div>
-        <div class="message">
-          1.周边配套齐全，地铁四号线陶然亭站，交通便利，公交云集，距离北京南站、西站都很近距离。 2.小区规模大，配套全年，幼儿园，体育场，游泳馆，养老院，小学。 3.人车分流，环境优美。 4.精装两居室，居家生活方便，还有一个小书房，看房随时联系。
-        </div>
-      </div>
-      <!-- 猜你喜欢 -->
-      <div class="like-info">
-        <div class="user-Like">猜你喜欢</div>
+      <div class="house-message">
         <div>
-          <van-cell-group class="user-txte">
-            <van-cell title="安贞西里 3室1厅" title-class="title">
-              <template #icon>
-                <van-image class="img" src="../assets/avatar.png" />
-              </template>
-              <template #label>
-                <div class="label">
-                  <div class="text1">72.32㎡/南北</div>
-                  <div class="text2">近地铁</div>
-                  <div class="text3">4500<span>元/月</span></div>
-                </div>
-              </template>
-            </van-cell>
-             <van-cell title="天居园 2室1厅" title-class="title">
-              <template #icon>
-                <van-image class="img" src="../assets/avatar.png" />
-              </template>
-              <template #label>
-                <div class="label">
-                  <div class="text1">83㎡</div>
-                  <div class="text2">近地铁</div>
-                  <div class="text3">7200 <span>元/月</span></div>
-                </div>
-              </template>
-            </van-cell>
-             <van-cell title="角门甲4号院 1室1厅" title-class="title">
-              <template #icon>
-                <van-image class="img" src="../assets/avatar.png" />
-              </template>
-              <template #label>
-                <div class="label">
-                  <div class="text1">52㎡</div>
-                  <div class="text2">近地铁</div>
-                  <div class="text3">5000 <span>元/月</span></div>
-                </div>
-              </template>
-            </van-cell>
-          </van-cell-group>
+          <div class="txt">{{ list.price }} <span>/月</span></div>
+          <div class="mitxt">租金</div>
+        </div>
+        <div>
+          <div class="txt">{{ list.roomType }}</div>
+          <div class="mitxt">房型</div>
+        </div>
+        <div>
+          <div class="txt">{{ list.size }}平米</div>
+          <div class="mitxt">面积</div>
         </div>
       </div>
-      <!-- 底部菜单 -->
-      <div class="footer-nav">
-        <span class="f1"><i class="iconfont icon-wodeshoucang"></i> 收藏</span>
-        <span class="f2">在线咨询</span>
-        <span class="f3">电话预约</span>
+      <div class="house-ff">
+        <div>
+          <p><span>装修：</span>精装</p>
+          <p><span>楼层：</span>{{ list.floor }}</p>
+        </div>
+        <div>
+          <p><span>朝向：</span>东</p>
+          <p><span>类型：</span>普通住宅</p>
+        </div>
       </div>
     </div>
+    <!--  小区地理位置-->
+    <div class="Cell-location">
+      <div class="title"><span>小区：</span>天山星城</div>
+      <div class="map img">
+        <baidu-map
+          class="map"
+          :center="map.center"
+          :zoom="map.zoom"
+          @ready="handler"
+        >
+          <!--缩放-->
+          <bm-navigation anchor="BMAP_ANCHOR_TOP_LEFT"></bm-navigation>
+          <!--定位-->
+          <bm-geolocation
+            anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
+            :showAddressBar="true"
+            :autoLocation="true"
+          ></bm-geolocation>
+          <!--点-->
+          <bm-marker
+            :position="map.center"
+            :dragging="map.dragging"
+            animation="BMAP_ANIMATION_DROP"
+          >
+            <!--提示信息-->
+            <bm-info-window class="mapshowss" :show="map.show">天山星城</bm-info-window>
+          </bm-marker>
+        </baidu-map>
+      </div>
+    </div>
+    <!-- 房屋配套 -->
+    <div class="Housing-supporting">
+      <div class="title">房屋配套</div>
+      <div class="supporting">
+        <div class="text"><span class="iconfont icon-yigui"></span>衣柜</div>
+        <div class="text"><span class="iconfont icon-dianshi"></span> 电视</div>
+      </div>
+    </div>
+    <!-- 房源概况 -->
+    <div class="Housing-set">
+      <div class="title">房源概况</div>
+      <div class="userFd">
+        <div class="img">
+          <img src="../assets/avatar.png" alt="" />
+        </div>
+        <div class="Fdname">
+          王女士
+          <div class="renzheng">
+            <i class="iconfont icon-gerenziliao"></i>已认证房主
+          </div>
+        </div>
+        <div class="xiaoxi">发消息</div>
+      </div>
+      <div class="message">
+        1.周边配套齐全，地铁四号线陶然亭站，交通便利，公交云集，距离北京南站、西站都很近距离。
+        2.小区规模大，配套全年，幼儿园，体育场，游泳馆，养老院，小学。
+        3.人车分流，环境优美。
+        4.精装两居室，居家生活方便，还有一个小书房，看房随时联系。
+      </div>
+    </div>
+    <!-- 猜你喜欢 -->
+    <div class="like-info">
+      <div class="user-Like">猜你喜欢</div>
+      <div>
+        <van-cell-group class="user-txte">
+          <van-cell title="安贞西里 3室1厅" title-class="title">
+            <template #icon>
+              <van-image class="img" src="../assets/avatar.png" />
+            </template>
+            <template #label>
+              <div class="label">
+                <div class="text1">72.32㎡/南北</div>
+                <div class="text2">近地铁</div>
+                <div class="text3">4500<span>元/月</span></div>
+              </div>
+            </template>
+          </van-cell>
+          <van-cell title="天居园 2室1厅" title-class="title">
+            <template #icon>
+              <van-image class="img" src="../assets/avatar.png" />
+            </template>
+            <template #label>
+              <div class="label">
+                <div class="text1">83㎡</div>
+                <div class="text2">近地铁</div>
+                <div class="text3">7200 <span>元/月</span></div>
+              </div>
+            </template>
+          </van-cell>
+          <van-cell title="角门甲4号院 1室1厅" title-class="title">
+            <template #icon>
+              <van-image class="img" src="../assets/avatar.png" />
+            </template>
+            <template #label>
+              <div class="label">
+                <div class="text1">52㎡</div>
+                <div class="text2">近地铁</div>
+                <div class="text3">5000 <span>元/月</span></div>
+              </div>
+            </template>
+          </van-cell>
+        </van-cell-group>
+      </div>
+    </div>
+    <!-- 底部菜单 -->
+    <div class="footer-nav">
+      <span class="f1"><i class="iconfont icon-wodeshoucang"></i> 收藏</span>
+      <span class="f2">在线咨询</span>
+      <span class="f3">电话预约</span>
+    </div>
+  </div>
 </template>
 <script>
 import { houseMeassage } from '@/api/house'
@@ -131,7 +161,13 @@ export default {
   name: 'Detai',
   data () {
     return {
-      id: this.$route.query.id, // 上一页传过来的音乐id
+      map: {
+        center: { lng: 115.929912, lat: 28.683191 },
+        zoom: 15,
+        show: true,
+        dragging: true
+      },
+      id: this.$route.query.id, // 上一页传过来的id
       list: {},
       base: 'http://liufusong.top:8080'
     }
@@ -148,7 +184,17 @@ export default {
     async houseMeassage () {
       const res = await houseMeassage(this.id)
       this.list = res.data.body
-      // console.log(res)
+      console.log(res)
+    },
+    handler ({ BMap, map }) {
+      // const me = this
+      // console.log(BMap, map)
+      // 鼠标缩放
+      map.enableScrollWheelZoom(true)
+      // 点击事件获取经纬度
+      map.addEventListener('click', function (e) {
+        console.log(e.point.lng, e.point.lat)
+      })
     }
   }
 }
@@ -176,7 +222,7 @@ export default {
   height: 252px;
   line-height: 150px;
   text-align: center;
-  img{
+  img {
     width: 100%;
     height: 100%;
   }
@@ -261,6 +307,11 @@ export default {
       color: #666666;
     }
   }
+}
+//地图
+.map {
+  width: 100%;
+  height: 145px;
 }
 //房屋配套
 .Housing-supporting {

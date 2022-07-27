@@ -16,24 +16,24 @@
       @search="onSearch"
     >
     <template #left>
-      <span class="text" @click="$router.push('/city')" >北京▾</span>
+      <span class="text" @click="$router.push('/city')" >{{city}}▾</span>
     </template>
     </van-search>
-    <i class="ditu iconfont icon-ditu1"></i>
+    <i class="ditu iconfont icon-ditu1" @click="$router.push('/map')"></i>
     <!-- 轮播图区域 -->
     <!-- 租房方式选择 -->
     <van-grid>
-        <van-grid-item text="整租">
+        <van-grid-item text="整租" to='/home/list'>
           <template #icon>
             <div class="iconfont icon-fangwuxinxi"></div>
           </template>
         </van-grid-item>
-        <van-grid-item text="合租">
+        <van-grid-item text="合租" to='/home/list'>
           <template #icon>
             <div class="iconfont icon-duoren"></div>
           </template>
         </van-grid-item>
-        <van-grid-item text="地图找房">
+        <van-grid-item text="地图找房" @click="$router.push('/map')">
           <template #icon>
             <div class="iconfont icon-ditu"></div>
           </template>
@@ -70,10 +70,12 @@
 </template>
 <script>
 import { swiper, homeRent } from '@/api/home'
+import { getCity } from '@/utils/auth'
 export default {
   name: '',
   data () {
     return {
+      city: '',
       value: '',
       swiper: [], // 轮播图
       rentHouse: [], // 租房小组
@@ -85,6 +87,8 @@ export default {
     this.onswiper()
     // 租房小组
     this.homeRentDown()
+    // 当前城市
+    this.city = getCity()?.label ?? { label: '北京', value: 'AREA|88cff55c-aaa4-e2e0' }.label
   },
   mounted () {},
   computed: {},

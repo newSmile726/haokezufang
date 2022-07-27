@@ -6,34 +6,46 @@
         show-action
         background="#f6f5f6"
         placeholder="请输入搜索关键词"
-        @search="onSearch"
+        @input="onSearch"
         @cancel="onCancel"
       />
     </form>
     <van-cell-group>
-      <van-cell title="单元格"/>
+      <van-cell v-for="(item,index) in cityList" :key="index" :title="item.communityName" @click="giveValue(item)"/>
     </van-cell-group>
   </div>
 </template>
 <script>
 import { KeywordQuery } from '@/api/area'
+import { getCity } from '@/utils/auth'
 export default {
   name: 'search',
   data () {
     return {
-      value: ''
+      value: '',
+      cityId: '',
+      cityList: []
     }
   },
-  created () {},
+  created () {
+    this.cityId = getCity().value
+  },
   mounted () {},
   computed: {},
   methods: {
-    async onSearch (val) {
-      const res = await KeywordQuery(val)
+    async onSearch () {
+      const res = await KeywordQuery(this.value, this.cityId)
       console.log(res)
+      this.cityList = res.data.body
     },
     onCancel () {
       this.$router.back()
+    },
+    giveValue (item) {
+      this.$router.push({
+        name: 'add',
+        params: { item }
+      })
     }
   }
 }

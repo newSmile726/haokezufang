@@ -53,7 +53,12 @@ const routes = [
   },
   {
     path: '/add',
+    name: 'add',
     component: () => import('@/views/add')
+  },
+  {
+    path: '/map',
+    component: () => import('@/views/map')
   },
   {
     path: '/search',

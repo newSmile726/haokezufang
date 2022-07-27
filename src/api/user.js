@@ -50,3 +50,28 @@ export const Myhouseslist = (user) => {
     headers: { Authorization: user }
   })
 }
+/**
+ *  发布房源
+ * @param {Object} data 发布的房源数据
+ * @returns  promise
+ */
+export const PublishListings = (user, body) => {
+  return request({
+    url: '/user/houses',
+    method: 'POST',
+    headers: { Authorization: user },
+    data: body
+  })
+}
+/**
+ *  上传房屋图像
+ * @param {object} fm 图像的fiel
+ * @returns  promise
+ */
+export const HouseImageUpload = (fm) => {
+  return request({
+    url: '/houses/image',
+    method: 'POST',
+    data: fm
+  })
+}

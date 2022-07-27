@@ -1,7 +1,7 @@
 <template>
   <div class="profile-info">
     <!-- 未登录页面 -->
-    <div v-if="user==null">
+    <div v-if="!isLogin">
       <div class="title-img"></div>
     <div class="My_info__eOYeg">
       <van-image
@@ -65,7 +65,7 @@
 <script>
 import { mapState } from 'vuex'
 import { profile } from '@/api/user.js'
-// import '@/utils/RouteGuard'
+import '@/utils/RouteGuard'
 export default {
   name: 'Profile',
   data () {
@@ -75,13 +75,16 @@ export default {
     }
   },
   created () {
-    if (this.user) {
+    if (this.isLogin) {
       this.messageInfo()
     }
   },
   mounted () {},
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    isLogin () {
+      return !!this.$store.state.user.token
+    }
   },
   methods: {
     // 退出按钮
@@ -91,7 +94,7 @@ export default {
         message: '是否确定退出'
       })
         .then(() => {
-          this.$store.commit('setUser', null)
+          this.$store.commit('setUser', {})
         })
         .catch(() => {
           // on cancel
@@ -99,9 +102,13 @@ export default {
     },
     // 获取用户信息
     async messageInfo () {
-      const res = await profile(this.user.token)
-      // console.log(res)
-      this.userInfo = res.data.body
+      try {
+        const res = await profile(this.user.token)
+        // console.log(res)
+        this.userInfo = res.data.body
+      } catch (error) {
+        this.$toast.fail('请重新登录~~')
+      }
     }
   }
 }

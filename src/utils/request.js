@@ -6,11 +6,11 @@ const request = axios.create({
 })
 // request.interceptors.request.use(
 //   (config) => {
-//     const token = store.state.user
+//     const token = store.state.user.token
 //     if (token) {
-//       config.headers.Authorization = token
+//       config.headers.Authorization = `Bearer ${token}`
 //     }
-//     // console.log(config)
+//     console.log(config)
 //     return config
 //   },
 //   (err) => {

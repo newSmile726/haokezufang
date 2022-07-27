@@ -20,3 +20,25 @@ export const sethouseMeassage = (user) => {
     headers: { Authorization: user }
   })
 }
+/**
+ * 获取房屋查询条件
+ * @param {string} id  城市id
+ * @returns  promise
+ */
+export const ObtainHousingQueryConditions = (id) => {
+  return request({
+    url: '/houses/condition',
+    params: { id }
+  })
+}
+/**
+ *  根据条件查询房屋
+ * @param {string} id 地区的id
+ * @returns  promise
+ */
+export const ConditionQueryHouse = (params) => {
+  return request({
+    url: '/houses',
+    params
+  })
+}
